@@ -1,8 +1,9 @@
 <?php
 /* fix problem with file paths */
 $dir = $_GET['dir'] ?? '.';
-if (!is_dir($dir)) {
-    echo $dir . " is not a directory.";
+$dir = realpath($dir);
+if ($dir === false || !is_dir($dir)) {
+    echo "Invalid directory.";
     die();
 }
 $imageDirs = scandir($dir);
@@ -38,31 +39,28 @@ function imWidth($a, $b) {
             }
             if (is_dir("$dir/$imageDir")) { 
                 $jjj = "$dir/$imageDir";
-                echo("<li><p>Directory " . $jjj . "</p>");
+                echo("<li><p>Directory " . "$dir/$imageDir" . "</p>");
         ?>                      
                     <?php
-                    $subFiles = scandir("$jjj");
+                    $subFiles = scandir("$dir/$imageDir");
+                    $imageFiles = [];
                     foreach ($subFiles as $subFile) {
                         if (is_file("$dir/$imageDir/$subFile") && preg_match('/\.(jpg|jpeg|png|gif)$/i', $subFile)) {
-                            echo "<p><span><a href=\"$dir/$imageDir/$subFile\">$subFile</a></span>";
-                            // list the dimensions of the image
-                            $imageSize = getimagesize("$dir/$imageDir/$subFile");
-                            if ($imageSize) {
-                                echo "<span>&nbsp;" . $imageSize[0] . "x" . $imageSize[1] . "</span>";
-                            }
-                            else {
-                                echo ("<span>File has no dimensions.</span>");
-                            }
-                            echo ("</p>");
-                        
-                        }
-                        else {
-                            unset($subFiles[array_search($subFile, $subFiles)]);
+                            $imageFiles[] = $subFile;
                         }
                     }
-                    usort($subFiles, 'imWidth');
-                    foreach ($subFiles as $s) {
-                        echo($s . "<br>");
+                    usort($imageFiles, 'imWidth');
+                    foreach ($imageFiles as $subFile) {
+                        echo "<p><span><a href=\"$dir/$imageDir/$subFile\">$subFile</a></span>";
+                        // list the dimensions of the image
+                        $imageSize = getimagesize("$dir/$imageDir/$subFile");
+                        if ($imageSize) {
+                            echo "<span>&nbsp;" . $imageSize[0] . "x" . $imageSize[1] . "</span>";
+                        }
+                        else {
+                            echo ("<span>File has no dimensions.</span>");
+                        }
+                        echo ("</p>");
                     }
                 ?></li><?php
             }
