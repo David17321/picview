@@ -1,4 +1,5 @@
 <?php
+/* fix problem with file paths */
 $dir = $_GET['dir'] ?? '.';
 if (!is_dir($dir)) {
     echo $dir . " is not a directory.";
