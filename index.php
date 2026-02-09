@@ -1,13 +1,16 @@
 <?php
+
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
 /* fix problem with file paths */
-$dir = $_GET['dir'] ?? '.';
-$dir = realpath($dir);
-if ($dir === false || !is_dir($dir)) {
+$maindir = $_GET['dir'] ?? '.';
+if ($maindir === false || !is_dir($maindir)) {
     echo "Invalid directory.";
     die();
 }
-$imageDirs = scandir($dir);
-
+$imageDirs = glob($maindir . '/*', GLOB_ONLYDIR);
 
 function imWidth($a, $b) {
     $sizeA = getimagesize($a);
@@ -17,6 +20,20 @@ function imWidth($a, $b) {
     }
     return 0;
 }   
+
+function getSmallest($directory) {
+    $globString = $directory . "/*.{jpg,jpeg,JPG JPEG}";
+    $imageFiles = glob($globString, GLOB_BRACE);
+    usort($imageFiles, "imWidth");
+    echo("<details>");
+    foreach($imageFiles as $imageFile) {
+        $size = getImagesize($imageFile);
+        echo ("<p>");
+        echo ($imageFile . "&nbsp;&nbsp;");
+        echo ($size[0] . 'x' . $size[1]);
+        echo ("</p>");
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -32,38 +49,11 @@ function imWidth($a, $b) {
     <ul>
         <?php 
         foreach ($imageDirs as $imageDir) {
-            /* If $file is a directory, list the file and each image file it contains. */
-            /* Skip the current and parent directory entries. */
-            if ($imageDir === '.' || $imageDir === '..') {
-                continue;
-            }
-            if (is_dir("$dir/$imageDir")) { 
-                $jjj = "$dir/$imageDir";
-                echo("<li><p>Directory " . "$dir/$imageDir" . "</p>");
-        ?>                      
-                    <?php
-                    $subFiles = scandir("$dir/$imageDir");
-                    $imageFiles = [];
-                    foreach ($subFiles as $subFile) {
-                        if (is_file("$dir/$imageDir/$subFile") && preg_match('/\.(jpg|jpeg|png|gif)$/i', $subFile)) {
-                            $imageFiles[] = $subFile;
-                        }
-                    }
-                    usort($imageFiles, 'imWidth');
-                    foreach ($imageFiles as $subFile) {
-                        echo "<p><span><a href=\"$dir/$imageDir/$subFile\">$subFile</a></span>";
-                        // list the dimensions of the image
-                        $imageSize = getimagesize("$dir/$imageDir/$subFile");
-                        if ($imageSize) {
-                            echo "<span>&nbsp;" . $imageSize[0] . "x" . $imageSize[1] . "</span>";
-                        }
-                        else {
-                            echo ("<span>File has no dimensions.</span>");
-                        }
-                        echo ("</p>");
-                    }
-                ?></li><?php
-            }
+            echo ('<li>');
+            echo ('<p>' . $imageDir . '<p>');
+            getSmallest($imageDir);
+            echo ('</li>');   
+
         }
     
         ?>
