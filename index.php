@@ -4,13 +4,17 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-/* fix problem with file paths */
 $maindir = $_GET['dir'] ?? '.';
 if ($maindir === false || !is_dir($maindir)) {
     echo "Invalid directory.";
     die();
 }
 $imageDirs = glob($maindir . '/*', GLOB_ONLYDIR);
+
+$allImages = [];
+foreach ($imageDirs as $imageDir) {
+    $allImages[] = getImages($imageDir);  
+}
 
 function imWidth($a, $b) {
     $sizeA = getimagesize($a);
@@ -21,43 +25,80 @@ function imWidth($a, $b) {
     return 0;
 }   
 
-function getSmallest($directory) {
+function getImages($directory) {
     $globString = $directory . "/*.{jpg,jpeg,JPG JPEG}";
     $imageFiles = glob($globString, GLOB_BRACE);
     usort($imageFiles, "imWidth");
-    echo("<details>");
-    foreach($imageFiles as $imageFile) {
-        $size = getImagesize($imageFile);
-        echo ("<p>");
-        echo ($imageFile . "&nbsp;&nbsp;");
-        echo ($size[0] . 'x' . $size[1]);
-        echo ("</p>");
-    }
+    return $imageFiles;
 }
+
+///////////////////////////////////////////////////////////////////////////////
 ?>
 
-<!DOCTYPE html>
+
+
+
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Browser</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Image Browser</title>
+
+    <link 
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" 
+        rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" 
+        crossorigin="anonymous">
+
+    <style>
+        body {
+            color: white;
+            background-color: #291b53;
+        }
+        li {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        details>p {
+            margin-bottom: 0rem;
+            margin-left: 2rem;
+        }
+        p>span {
+            margin-right: 1rem;
+            color: #ffff88;
+        }
+    </style>
+
+    <script
+        src="https://code.jquery.com/jquery-4.0.0.min.js"
+        integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao="
+        crossorigin="anonymous"
+        async>
+    </script>
+
+    <script 
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" 
+        crossorigin="anonymous"
+        async>
+    </script>
+
 </head>
 <body>
-    <h1>File Browser</h1>
-    <ul>
-        <?php 
-        foreach ($imageDirs as $imageDir) {
-            echo ('<li>');
-            echo ('<p>' . $imageDir . '<p>');
-            getSmallest($imageDir);
-            echo ('</li>');   
-
+    <h1>Image Browser</h1>
+    <?php
+    echo("<ul>");
+    for ($i = 0; $i < sizeof($imageDirs); $i++) {
+        echo("<li>\n");
+        echo("<span>". $imageDirs[$i] . "\n");
+        echo("<details>\n");
+        foreach($allImages[$i] as $img) {  
+            $imSize =  getimagesize($img);
+            echo("<p><span>" . $img . "</span><span>" . $imSize[0] . "x" . $imSize[1] . "</span></p>\n");
         }
-    
-        ?>
-    </ul>
-</body></html>
-
-
+        echo("</details>\n");
+        echo("</li>\n");
+    } 
+    ?>
+</body>
+</html>
