@@ -2,7 +2,6 @@
 // To Do:  Use Masonry JS Library to arrange pictures.
 $devVersion = true;
 
-
 if ($devVersion) {
     ini_set('display_errors', '1');
     ini_set('display_startup_errors', '1');
@@ -14,7 +13,42 @@ if ($maindir === false || !is_dir($maindir)) {
     echo "Invalid directory.";
     die();
 }
+
+class ImageDirInfo {
+    public $dirName;
+    public $aspectRatio;
+    public $files;
+    function __construct($dirName) {
+        $this->dirName = $dirName;
+        $globString = $this->dirName . "/*.{jpg,jpeg,JPG JPEG}";
+        $this->files = glob($globString, GLOB_BRACE);
+        usort($this->files, "imWidth");
+        if (sizeof($this->files) == 0) {
+            $this->aspectRatio = 0;
+        } else {
+            $s = getImageSize($this->files[0]);
+            $this->aspectRatio = $s[0] / $s[1];
+        }
+    }
+
+    function containsFiles() {
+        return (sizeof($this->files) > 0);
+    }
+
+    function printInfo() {
+        echo($this->dirName . "&nbsp;&nbsp;");
+        echo($this->aspectRatio . "<br>");
+    }
+
+    function getThumbnail() {
+        return $this->files[0];
+    }
+}
 $imageDirs = glob($maindir . '/*', GLOB_ONLYDIR);
+$imageDirObjects = array();
+foreach ($imageDirs as $imageDir) {
+    $imageDirObjects[] = new ImageDirInfo($imageDir);
+}
 
 $allImages = [];
 foreach ($imageDirs as $imageDir) {
@@ -36,6 +70,7 @@ function getImages($directory) {
     usort($imageFiles, "imWidth");
     return $imageFiles;
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////
 ?>
@@ -61,35 +96,63 @@ function getImages($directory) {
         crossorigin="anonymous"
         async>
     </script>
-<!--
-    <script 
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" 
-        crossorigin="anonymous"
-        async>
-    </script>
--->
 
     <script
-        src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js">
+        src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js" async>
     </script>
+
+    <script
+        src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js" async>
+    </script>
+
+    <script async>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elem = document.querySelector('.masonry');
+            var msnry = new Masonry(elem, {
+                itemSelector: '.masonry-item',
+                columnWidth: '.masonry-item',
+                percentPosition: true,
+                horizontalOrder: true
+            });
+            imagesLoaded(elem, function() {
+                msnry.layout();
+            });
+        });
+    </script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        html { overflow-y: scroll;  }
+        .masonry-item {
+            width: 33.33%;
+            padding: 1%;
+        }
+        .masonry-item img {
+            display: block;
+            max-width: 100%;
+        }
+        .masonry {
+            counter-reset: masonry-item;
+        }
+        .masonry:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+    </style>
 
 </head>
 <body>
     <h1>Image Browser<?php if($devVersion) echo("  <em>[DEV VERSION&mdash;DO NOT UPLOAD]</em>"); ?></h1>
     <?php
-    echo("<ul>");
-    for ($i = 0; $i < sizeof($imageDirs); $i++) {
-        echo("<li>\n");
-        echo("<span>". $imageDirs[$i] . "</span>\n");
-        echo("<details>\n");
-        foreach($allImages[$i] as $img) {  
-            $imSize =  getimagesize($img);
-            echo("<p><span>" . $img . "</span><span>" . $imSize[0] . "&times;" . $imSize[1] . "</span></p>\n");
-        }
-        echo("</details>\n");
-        echo("</li>\n");
-    } 
-    ?>
+    
+    echo("<div class=masonry>");
+    for ($i = 0; $i < sizeof($imageDirObjects); $i++){
+        echo("<div class=\"masonry-item\"><img src=\"" . $imageDirObjects[$i]->getThumbnail() . "\" class=\"masonry-content\"</div>");
+    }
+    echo("</div>");
+?>
 </body>
 </html>
