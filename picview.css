@@ -1,0 +1,23 @@
+body {
+    color: white;
+    background-color: #291b53;
+}
+
+li {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+details>p {
+    margin-bottom: 0rem;
+    margin-left: 2rem;
+}
+
+p>span {
+    margin-right: 1rem;
+    color: #ffff88;
+}
+
+h1>em {
+    color: #aa0000;
+}
