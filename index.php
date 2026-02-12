@@ -106,41 +106,63 @@ function getImages($directory) {
     </script>
 
     <script async>
-        document.addEventListener('DOMContentLoaded', function() {
-            var elem = document.querySelector('.masonry');
-            var msnry = new Masonry(elem, {
-                itemSelector: '.masonry-item',
-                columnWidth: '.masonry-item',
-                percentPosition: true,
-                horizontalOrder: true
-            });
-            imagesLoaded(elem, function() {
-                msnry.layout();
-            });
-        });
+        $('.grid').masonry({
+            itemSelector: '.grid-item',
+            columnWidth: '.grid-sizer',
+            percentPosition: true
+        })
+        
     </script>
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
-        html { overflow-y: scroll;  }
-        .masonry-item {
-            width: 33.33%;
-            padding: 1%;
-        }
-        .masonry-item img {
-            display: block;
-            max-width: 100%;
-        }
-        .masonry {
-            counter-reset: masonry-item;
-        }
-        .masonry:after {
-            content: '';
-            display: block;
-            clear: both;
-        }
+        * { box-sizing: border-box; }
+
+body { font-family: sans-serif; }
+
+/* ---- grid ---- */
+
+.grid {
+  background: #222;
+  max-width: 1200px;
+}
+
+/* clearfix */
+.grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* ---- grid-item ---- */
+
+.grid-sizer,
+.grid-item {
+  width: 33%;
+}
+
+.grid-item {
+  height: 120px;
+  float: left;
+  background: #222;
+  border: 2px solid #222;
+  border-color: #ccc;
+}
+
+.grid-item--width2 { width: 20%; }
+.grid-item--width3 { width: 30%; }
+.grid-item--width4 { width: 45%; }
+
+
+.grid-item--height4 { height: 400px; }
+.grid-item--height2 { height: 200px; }
+
+.grid-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 1em;
+}
+
     </style>
 
 </head>
@@ -148,9 +170,21 @@ function getImages($directory) {
     <h1>Image Browser<?php if($devVersion) echo("  <em>[DEV VERSION&mdash;DO NOT UPLOAD]</em>"); ?></h1>
     <?php
     
-    echo("<div class=masonry>");
+    echo("<div class=grid>");
+    echo("<div class=\"grid-sizer\"></div>");
     for ($i = 0; $i < sizeof($imageDirObjects); $i++){
-        echo("<div class=\"masonry-item\"><img src=\"" . $imageDirObjects[$i]->getThumbnail() . "\" class=\"masonry-content\"</div>");
+        //$shapeClass = ($imageDirObjects[$i]->aspectRatio < 1) ? "grid-item--height4 grid-item--width2" : "grid-item--width3 grid-item--height2";
+        $ar = $imageDirObjects[$i]->aspectRatio;
+        if ($ar < 1) {
+            $shapeClass =  "grid-item--width2 grid-item--height4";
+        } else {
+            if ($ar < 2) {
+                $shapeClass = "grid-item--width3 grid-item--height2";
+            } else {
+                $shapeClass = "grid-item--width4 grid-item--height2";
+            }
+        }
+        echo("<div class=\"grid-item" .  " " . $shapeClass . "\"><img src=\"" . $imageDirObjects[$i]->getThumbnail() . "\"> </div>");
     }
     echo("</div>");
 ?>
