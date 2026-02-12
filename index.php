@@ -153,8 +153,8 @@ body { font-family: sans-serif; }
 .grid-item--width4 { width: 45%; }
 
 
-.grid-item--height4 { height: 400px; }
-.grid-item--height2 { height: 200px; }
+.grid-item--height4 { height: 50vh; }
+.grid-item--height2 { height: 25vh; }
 
 .grid-item img {
     width: 100%;
@@ -173,7 +173,6 @@ body { font-family: sans-serif; }
     echo("<div class=grid>");
     echo("<div class=\"grid-sizer\"></div>");
     for ($i = 0; $i < sizeof($imageDirObjects); $i++){
-        //$shapeClass = ($imageDirObjects[$i]->aspectRatio < 1) ? "grid-item--height4 grid-item--width2" : "grid-item--width3 grid-item--height2";
         $ar = $imageDirObjects[$i]->aspectRatio;
         if ($ar < 1) {
             $shapeClass =  "grid-item--width2 grid-item--height4";
@@ -184,7 +183,7 @@ body { font-family: sans-serif; }
                 $shapeClass = "grid-item--width4 grid-item--height2";
             }
         }
-        echo("<div class=\"grid-item" .  " " . $shapeClass . "\"><img src=\"" . $imageDirObjects[$i]->getThumbnail() . "\"> </div>");
+        echo("<div class=\"grid-item" . " " . $shapeClass . "\"><img src=\"" . $imageDirObjects[$i]->getThumbnail() . "\"> </div>");
     }
     echo("</div>");
 ?>
