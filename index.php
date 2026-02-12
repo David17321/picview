@@ -152,12 +152,12 @@ body { font-family: sans-serif; }
   border-color: #555;
 }
 
-.grid-item--width2 { width: 20%; }
-.grid-item--width3 { width: 30%; }
-.grid-item--width4 { width: 45%; }
+.grid-item--width1 { width: 16.667%; }
+.grid-item--width2 { width: 33.333%; }
+.grid-item--width3 { width: 50%; }
 
-.grid-item--height4 { height: 50vh; }
-.grid-item--height2 { height: 25vh; }
+.grid-item--height1 { height: 15vh; }
+.grid-item--height2 { height: 30vh; }
 
 .grid-item img {
     width: 100%;
@@ -175,24 +175,35 @@ body { font-family: sans-serif; }
     
     echo("<div class=grid>");
     echo("<div class=\"grid-sizer\"></div>");
+    shuffle($imageDirObjects);
     for ($i = 0; $i < sizeof($imageDirObjects); $i++){
         $ar = $imageDirObjects[$i]->aspectRatio;
-        if ($ar < 1) {
-            $shapeClass =  "grid-item--width2 grid-item--height4";
-        } else {
-            if ($ar < 2) {
-                $shapeClass = "grid-item--width3 grid-item--height2";
-            } else {
-                $shapeClass = "grid-item--width4 grid-item--height2";
-            }
+
+        if ($ar > 2.0) {
+             $shapeClass =  "grid-item--width3 grid-item--height1";
         }
+
+        if ($ar <= 2.0 && $ar > 1.1) {
+            $shapeClass =  "grid-item--width2 grid-item--height1";
+        }
+
+        if ($ar <= 1.1 && $ar > 0.9) {
+            $shapeClass =  "grid-item--width1 grid-item--height1";
+        }
+
+        if ($ar <= 0.9 ) {
+            $shapeClass =  "grid-item--width1 grid-item--height2";
+        }     
+
         echo("<div class=\"grid-item" . 
             " " . $shapeClass . 
             "\"><a href=\"" . 
             $imageDirObjects[$i]->getLargest() .
             "\"> <img src=\"" . 
             $imageDirObjects[$i]->getThumbnail() .
-             "\"></a></div>");
+             "\" title=\"aspect ratio: " .
+             $ar . "\"" . 
+             "></a></div>");
     }
     echo("</div>");
 ?>
