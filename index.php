@@ -43,6 +43,10 @@ class ImageDirInfo {
     function getThumbnail() {
         return $this->files[0];
     }
+
+    function getLargest() {
+        return $this->files[sizeof($this->files)-1];
+    }
 }
 $imageDirs = glob($maindir . '/*', GLOB_ONLYDIR);
 $imageDirObjects = array();
@@ -70,7 +74,6 @@ function getImages($directory) {
     usort($imageFiles, "imWidth");
     return $imageFiles;
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////
 ?>
@@ -124,6 +127,7 @@ body { font-family: sans-serif; }
 .grid {
   background: #222;
   max-width: 1200px;
+  margin-left: 1em;
 }
 
 /* clearfix */
@@ -141,17 +145,16 @@ body { font-family: sans-serif; }
 }
 
 .grid-item {
-  height: 120px;
+  height: 10vh;
   float: left;
   background: #222;
   border: 2px solid #222;
-  border-color: #ccc;
+  border-color: #555;
 }
 
 .grid-item--width2 { width: 20%; }
 .grid-item--width3 { width: 30%; }
 .grid-item--width4 { width: 45%; }
-
 
 .grid-item--height4 { height: 50vh; }
 .grid-item--height2 { height: 25vh; }
@@ -160,14 +163,14 @@ body { font-family: sans-serif; }
     width: 100%;
     height: 100%;
     object-fit: contain;
-    padding: 1em;
+    padding: 1vh;
 }
-
-    </style>
+</style>
 
 </head>
 <body>
-    <h1>Image Browser<?php if($devVersion) echo("  <em>[DEV VERSION&mdash;DO NOT UPLOAD]</em>"); ?></h1>
+    <div class=container>
+    <h1 style="margin: 1em;">Image Browser<?php if($devVersion) echo("  <em>[DEV VERSION&mdash;DO NOT UPLOAD]</em>"); ?></h1>
     <?php
     
     echo("<div class=grid>");
@@ -183,9 +186,16 @@ body { font-family: sans-serif; }
                 $shapeClass = "grid-item--width4 grid-item--height2";
             }
         }
-        echo("<div class=\"grid-item" . " " . $shapeClass . "\"><img src=\"" . $imageDirObjects[$i]->getThumbnail() . "\"> </div>");
+        echo("<div class=\"grid-item" . 
+            " " . $shapeClass . 
+            "\"><a href=\"" . 
+            $imageDirObjects[$i]->getLargest() .
+            "\"> <img src=\"" . 
+            $imageDirObjects[$i]->getThumbnail() .
+             "\"></a></div>");
     }
     echo("</div>");
 ?>
+</div>
 </body>
 </html>
