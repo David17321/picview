@@ -51,7 +51,10 @@ class ImageDirInfo {
 $imageDirs = glob($maindir . '/*', GLOB_ONLYDIR);
 $imageDirObjects = array();
 foreach ($imageDirs as $imageDir) {
-    $imageDirObjects[] = new ImageDirInfo($imageDir);
+    $idr = new ImageDirInfo($imageDir);
+    if ($idr->containsFiles()) {
+        $imageDirObjects[] = $idr;
+    }
 }
 
 $allImages = [];
@@ -125,7 +128,7 @@ body { font-family: sans-serif; }
 /* ---- grid ---- */
 
 .grid {
-  background: #222;
+  /*background: #222;*/
   max-width: 1200px;
   margin-left: 1em;
 }
@@ -147,23 +150,25 @@ body { font-family: sans-serif; }
 .grid-item {
   height: 10vh;
   float: left;
+  /*
   background: #222;
   border: 2px solid #222;
-  border-color: #555;
+  border-color: #222;*/
 }
 
 .grid-item--width1 { width: 16.667%; }
 .grid-item--width2 { width: 33.333%; }
 .grid-item--width3 { width: 50%; }
 
-.grid-item--height1 { height: 15vh; }
-.grid-item--height2 { height: 30vh; }
+.grid-item--height1 { height: 20vh; }
+.grid-item--height2 { height: 40vh; }
 
 .grid-item img {
     width: 100%;
     height: 100%;
     object-fit: contain;
     padding: 1vh;
+    /*border: 1px solid white; */
 }
 </style>
 
