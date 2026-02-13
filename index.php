@@ -1,5 +1,6 @@
 <?php
-// To Do:  Use Masonry JS Library to arrange pictures.
+// To Do:  Make responsive for smart TVs.
+// Create page for showing individual images with accompanying text info.
 $devVersion = true;
 
 if ($devVersion) {
