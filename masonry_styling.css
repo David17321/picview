@@ -17,42 +17,20 @@
 /* ---- grid-item ---- */
 .grid-sizer,
 .grid-item {
-  width: 33%;
+  width: 400px;
 }
 
 .grid-item {
-  height: 10vh;
+  height: 400px;
   float: left;
 }
 
-.grid-item--width1 { width: 16.667%; }
-.grid-item--width2 { width: 33.333%; }
-.grid-item--width3 { width: 50%; }
+.grid-item--width1 { width: 200px; }
+.grid-item--width2 { width: 400px; }
+.grid-item--width3 { width: 600px; }
 
-@media screen and (width >= 1920px) {
-  .grid-item--height1 { height: 30vh; }
-  .grid-item--height2 { height: 60vh; }
-}
-
-@media screen and (width < 1920px) and (width >= 960px) {
-  .grid-item--height1 { height: 25vh; }
-  .grid-item--height2 { height: 50vh; }
-}
-
-@media screen and (width < 960px) and (width >= 720px) {
-  .grid-item--height1 { height: 20vh; }
-  .grid-item--height2 { height: 40vh; }
-}
-
-@media screen and (width < 720px) and (width >= 540px) {
-  .grid-item--height1 { height: 15vh; }
-  .grid-item--height2 { height: 30vh; }
-}
-
-@media screen and (width < 540px) {
-  .grid-item--height1 { height: 10vh; }
-  .grid-item--height2 { height: 20vh; }
-}
+.grid-item--height1 { height: 200px; }
+.grid-item--height2 { height: 400px; }
 
 .grid-item img {
     width: 100%;
