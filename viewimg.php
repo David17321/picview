@@ -69,8 +69,6 @@ function isImage($filePath) {
         crossorigin="anonymous">
     </script>
 
-    
-
     <style>
         .main_image {
             display: flex;
@@ -80,7 +78,8 @@ function isImage($filePath) {
             align-items: center;
             position: fixed;
             background-color: #00000000;
-        }            
+        }  
+
         .main_image img {
             display: block;
             max-width:100%;
@@ -102,6 +101,7 @@ function isImage($filePath) {
             justify-content: center;
             align-items: center;
             font-size: 300%;
+            text-shadow: 2px 2px 2px black;
             
             animation-name: fadeOut;
             animation-duration: 5s;
@@ -120,42 +120,24 @@ function isImage($filePath) {
     <div id="clickme">
         <p id="message"><?php echo("$imgText");?></p>
     </div>
+
+    <script>
+        $(document).ready(function(){
+            $("#clickme").on("mousemove", function(){
+                // Stop the current animation, reset opacity, and restart the animation
+                $(this)
+                    .stop(true, true)
+                    .css({
+                        "opacity": 1,
+                        "animation": "none"
+                    })
+                    .offset(); // Trigger reflow to apply the changes
+                
+                // Restart the animation
+                $(this).css("animation", "fadeOut 5s forwards");
+            });
+        });
+    </script>
 </body>
 </html>
 
-<!-- 
-$(document).ready(function(){
-  $("#container").mousemove(function(){
-    // Stop ongoing animation, reset to opaque, then fade out
-    $(".text-element")
-      .stop(true, true)
-      .css("opacity", 1)
-      .animate({opacity: 0}, 1000);
-  });
-});
-
-AI Overview
-To restart a text opacity animation on mouse move using jQuery, use the
-.mousemove() event to trigger a chain of .stop() and .animate() functions. Calling .stop(true, true) instantly halts the current animation and skips to its end state before restarting, preventing animation queuing. 
-Key Implementation Details:
-
-    Target Element: Select the text container (e.g., $(".text-element")).
-    Restart Technique: $(selector).stop(true, true).css("opacity", 1).animate({opacity: 0}, 1000);.
-    Event: Use .mousemove(function(){...}) on the container or document. 
-
--->
-
-
-<!--
-
-<div id="clickme">
-  Click here
-</div>
-<img id="book" src="book.png" alt="" width="100" height="123">
-// With the element initially shown, we can dim it slowly:
-$( "#clickme" ).on( "click", function() {
-  $( "#book" ).fadeTo( "slow" , 0.5, function() {
-    // Animation complete.
-  });
-});
--->

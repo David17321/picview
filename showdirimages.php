@@ -94,47 +94,13 @@ function getImages($directory) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Browser</title>
-    
+    <title>Image Browser</title>   
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
         rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
         crossorigin="anonymous">   
-
     <link rel="stylesheet" type="text/css" href="picview.css">
     <link rel="stylesheet" type="text/css" href="masonry_styling.css">
-
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"
-        async>
-    </script>   
-    
-    <script
-        src="https://code.jquery.com/jquery-4.0.0.min.js"
-        integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao="
-        crossorigin="anonymous"
-        async>
-    </script>
-
-    <script
-        src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js" async>
-    </script>
-
-    <script
-        src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js" async>
-    </script>
-
-    <script async>
-        $('.grid').masonry({
-            itemSelector: '.grid-item',
-            columnWidth: '.grid-sizer',
-            percentPosition: true
-        })
-        
-    </script>
-
 </head>
 <body>
     <div class=container>
@@ -177,5 +143,34 @@ function getImages($directory) {
     echo("</div>");
 ?>
 </div>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous">
+    </script>   
+    
+    <script
+        src="https://code.jquery.com/jquery-4.0.0.min.js"
+        integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao="
+        crossorigin="anonymous">
+    </script>
+
+    <script
+        src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js" async>
+    </script>
+
+    <script
+        src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js" async>
+    </script>
+
+    <script>
+        $('.grid').masonry({
+            itemSelector: '.grid-item',
+            columnWidth: '.grid-sizer',
+            percentPosition: true
+        })   
+    </script>
+
 </body>
 </html>
