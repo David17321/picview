@@ -41,7 +41,7 @@
         <ul class="dirlist">
         <?php
         foreach ($directories as $dir) {
-            echo("<li><a href=\"showdirimages.php?dir=" . $dir . "\" class=\"abc\">" . basename($dir) . "</li>");
+            echo("<li><a href=\"showdirimages.php?dir=" . $dir . "\" class=\"abc\">" . basename($dir) . "</a></li>");
         }
         ?>
         </ul>

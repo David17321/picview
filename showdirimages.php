@@ -168,7 +168,7 @@ function getImages($directory) {
             " " . $shapeClass . 
             "\"><a href=\"" . 
             "viewimg.php?file=" .
-            urlencode($imageDirObjects[$i]->getLargest()) .
+            ($imageDirObjects[$i]->getLargest()) .
             "\"> <img src=\"" . 
             $imageDirObjects[$i]->getThumbnail() .
              "\" title=\"Select to view full size.\"" . 

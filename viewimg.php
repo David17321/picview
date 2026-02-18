@@ -1,8 +1,9 @@
 <?php
 
 $fileName = $_GET['file'];
-if (!isImage($fileName)) {
-    echo("not an image");
+
+if (!(isImage($fileName))) {
+    echo ("[ " . $fileName . "]  is not a proper image file.");
     die();
 }
 
@@ -10,12 +11,15 @@ function isImage($filePath) {
     if (!file_exists($filePath)) {
         return false;
     }
+
     // Ensure file is large enough to contain a signature
     if (filesize($filePath) < 12) {
         return false;
     }
-    $type = exif_imagetype($filePath);
-    return $type !== false;
+    return true;
+
+    $imSizeInfo = list($width, $height, $type, $attr) = getimagesize( $fileName );
+    return ($imSizeInfo === true);
 }
 ?>
 
