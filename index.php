@@ -1,4 +1,20 @@
 <?php
+/*
+
+$( "#clickme" ).on( "click", function() {
+  $( "#book" ).fadeTo( "slow" , 0.5, function() {
+    // Animation complete.
+  });
+});
+
+*/
+    $devVersion = true;
+    
+    if ($devVersion) {
+        ini_set('display_errors', '1');
+        ini_set('display_startup_errors', '1');
+        error_reporting(E_ALL);
+    }
     $maindir = ".";
     $directories = glob($maindir . '/*', GLOB_ONLYDIR);
 ?>
