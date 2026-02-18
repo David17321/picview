@@ -39,7 +39,6 @@ function isImage($filePath) {
     $imSizeInfo = list($width, $height, $type, $attr) = getimagesize( $fileName );
     return ($imSizeInfo === true);
 }
-
 ?>
 
 <!doctype html>
