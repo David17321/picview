@@ -48,6 +48,7 @@ function isImage($filePath) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Viewer</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
         rel="stylesheet"
@@ -106,8 +107,13 @@ function isImage($filePath) {
             animation-name: fadeOut;
             animation-duration: 5s;
             animation-iteration-count: 1;
-            animation-fill-mode: forwards;
-        
+            animation-fill-mode: forwards;  
+        }
+
+        @media screen and (width < 600px) {
+            p {
+                visibility: hidden;
+            }
         }
     </style>
 
