@@ -1,20 +1,6 @@
 <?php
-/*
+    include 'enable_warnings.php';
 
-$( "#clickme" ).on( "click", function() {
-  $( "#book" ).fadeTo( "slow" , 0.5, function() {
-    // Animation complete.
-  });
-});
-
-*/
-    $devVersion = true;
-    
-    if ($devVersion) {
-        ini_set('display_errors', '1');
-        ini_set('display_startup_errors', '1');
-        error_reporting(E_ALL);
-    }
     $maindir = ".";
     $directories = glob($maindir . '/*', GLOB_ONLYDIR);
 ?>
@@ -32,7 +18,6 @@ $( "#clickme" ).on( "click", function() {
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
         crossorigin="anonymous">   
 
-
     <link rel="stylesheet" type="text/css" href="picview.css">
 
     <script
@@ -42,7 +27,6 @@ $( "#clickme" ).on( "click", function() {
         async>
     </script>   
 
-    
     <script
         src="https://code.jquery.com/jquery-4.0.0.min.js"
         integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao="
@@ -54,11 +38,12 @@ $( "#clickme" ).on( "click", function() {
 <body>
     <div class=container>
         <h1>Picture Gallery</h1>
-        <h2>Make your selection</h2>
+        <h2>Make your selection below</h2>
         <ul class="dirlist">
         <?php
         foreach ($directories as $dir) {
-            echo("<li><a href=\"showdirimages.php?dir=" . $dir . "\" class=\"abc\">" . basename($dir) . "</a></li>");
+            echo("<li><a href=\"showdirimages.php?dir=" . $dir . 
+                "\" class=\"abc\">" . basename($dir) . "</a></li>");
         }
         ?>
         </ul>

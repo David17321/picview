@@ -49,6 +49,7 @@ function isImage($filePath) {
         crossorigin="anonymous">   
 
     <link rel="stylesheet" type="text/css" href="picview.css">
+    <link rel="stylesheet" type="text/css" href="viewimg.css">
 
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
@@ -63,66 +64,20 @@ function isImage($filePath) {
         crossorigin="anonymous">
     </script>
 
-    <style>
-        .main_image {
-            display: flex;
-            height:100vh;
-            width:100vw;
-            justify-content: center;
-            align-items: center;
-            position: fixed;
-            background-color: #00000000;
-        }  
-
-        .main_image img {
-            display: block;
-            max-width:100%;
-            max-height:100%;
-            z-index: -1;
-        }
-
-        @keyframes fadeOut {
-            from {opacity: 1;}
-            to {opacity: 0;}
-        }
-
-        #clickme {
-            height:100vh;
-            width:100vw;
-            position: fixed;
-            z-index: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 300%;
-            text-shadow: 2px 2px 2px black;
-            
-            animation-name: fadeOut;
-            animation-duration: 5s;
-            animation-iteration-count: 1;
-            animation-fill-mode: forwards;  
-        }
-
-        @media screen and (width < 600px) {
-            p {
-                visibility: hidden;
-            }
-        }
-    </style>
-
 </head>
+
 <body>
     <div class="main_image">
         <?php echo("<img src=\"" . $fileName . "\" title=\"" . $imgText . "\"> "); ?>
     </div>
 
-    <div id="clickme">
+    <div id="textarea">
         <p id="message"><?php echo("$imgText");?></p>
     </div>
 
     <script>
         $(document).ready(function(){
-            $("#clickme").on("mousemove", function(){
+            $("#textarea").on("mousemove", function(){
                 // Stop the current animation, reset opacity, and restart the animation
                 $(this)
                     .stop(true, true)
