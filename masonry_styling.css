@@ -49,6 +49,9 @@
       height: auto;
       object-fit: contain;
   }
+  .grid {
+    margin-left: 0;
+  }
 }
 
 /* Based on https://codepen.io/desandro/pen/nOmLZQ */

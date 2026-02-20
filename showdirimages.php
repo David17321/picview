@@ -1,6 +1,6 @@
 <?php
 
-include 'enable_warnings.php';
+//include 'enable_warnings.php';
 
 $maindir = $_GET['dir'] ?? '.';
 if ($maindir === false || !is_dir($maindir)) {
@@ -131,7 +131,7 @@ function getImages($directory) {
     <div class=container>
     <?php
     echo("<h1>" . $headingText . "</h1>"); 
-    if($devVersion) echo("<h1><em>[DEV VERSION&mdash;DO NOT UPLOAD]</em></h1>"); 
+    if(isset($devVersion)) echo("<h1><em>[DEV VERSION&mdash;DO NOT UPLOAD]</em></h1>"); 
     echo("<div class=grid>");
     echo("<div class=\"grid-sizer\"></div>");
     shuffle($imageDirObjects);

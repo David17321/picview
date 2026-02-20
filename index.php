@@ -1,5 +1,5 @@
 <?php
-    include 'enable_warnings.php';
+    //include 'enable_warnings.php';
 
     $maindir = ".";
     $directories = glob($maindir . '/*', GLOB_ONLYDIR);

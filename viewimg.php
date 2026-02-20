@@ -1,6 +1,6 @@
 <?php
 
-include 'enable_warnings.php';
+//include 'enable_warnings.php';
 
 $fileName = $_GET['file'];
 
@@ -77,6 +77,8 @@ function isImage($filePath) {
 
     <script>
         $(document).ready(function(){
+            const linkToOpen = "<?php echo $fileName; ?>";
+            
             $("#textarea").on("mousemove", function(){
                 // Stop the current animation, reset opacity, and restart the animation
                 $(this)
@@ -90,8 +92,11 @@ function isImage($filePath) {
                 // Restart the animation
                 $(this).css("animation", "fadeOut 5s forwards");
             });
+            
+            $("#textarea").on("click", function(){
+                window.location.href = linkToOpen;
+            });
         });
     </script>
 </body>
 </html>
-
