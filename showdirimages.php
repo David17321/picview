@@ -54,7 +54,7 @@ foreach ($imageDirs as $imageDir) {
 
 $txtFiles = glob($maindir . '/*.txt');
 if (!$txtFiles) {
-    $headingText = "<h1>Image Gallery</h1>";
+    $headingText = "Image Gallery";
 } else {
     $headingText = file_get_contents($txtFiles[0] );
 }
