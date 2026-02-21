@@ -1,10 +1,12 @@
 
 * { box-sizing: border-box; }
 
+
 /* ---- grid ---- */
 .grid {
-  max-width: 1200px;
-  margin-left: 1em;
+  /*max-width: 1800px;*/
+  width: 100%;
+  margin: 0 auto;
 }
 
 /* clearfix */
@@ -16,15 +18,13 @@
 
 /* ---- grid-item ---- */
 
-
-@media screen and (min-width: 800px) {
-  .grid-sizer,
-  .grid-item {
-  width: 400px;
+@media screen and (min-width: 600px) {
+  .grid-sizer, .grid-item {
+  width: 133px;
 }
 
 .grid-item {
-  height: 400px;
+  height: 133px;
   float: left;
 }
 
@@ -41,17 +41,31 @@
     object-fit: contain;
     padding: 1vh;
   }
+
+  .grid-item img:hover {
+    filter: brightness(75%);
+  }
+
+  #main_container {
+    width: 90vw; 
+    margin: 5vw; 
+  } 
 }
 
-@media screen and (width < 800px) {
-  .grid-item img {
+@media screen and (width < 600px) {
+  img {
       width: 100%;
       height: auto;
       object-fit: contain;
   }
   .grid {
-    margin-left: 0;
+    margin: 0;
+  }
+  #main_container {
+    width: 100vw; 
+    margin: 0; 
   }
 }
+
 
 /* Based on https://codepen.io/desandro/pen/nOmLZQ */

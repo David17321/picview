@@ -94,8 +94,8 @@ function getImages($directory) {
         rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
         crossorigin="anonymous">   
-    <link rel="stylesheet" type="text/css" href="picview.css">
-    <link rel="stylesheet" type="text/css" href="masonry_styling.css">
+    <link rel="stylesheet" type="text/css" href="gallery.css">
+    <link rel="stylesheet" type="text/css" href="showdirimages.css">
    
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
@@ -128,11 +128,12 @@ function getImages($directory) {
 
 </head>
 <body>
-    <div class=container>
+    <!--<div style="width: 90vw; margin: 5vw; border: 1px solid red;">-->
+    <div id="main_container">
     <?php
     echo("<h1>" . $headingText . "</h1>"); 
     if(isset($devVersion)) echo("<h1><em>[DEV VERSION&mdash;DO NOT UPLOAD]</em></h1>"); 
-    echo("<div class=grid>");
+    echo("<div class=\"grid\">");
     echo("<div class=\"grid-sizer\"></div>");
     shuffle($imageDirObjects);
     for ($i = 0; $i < sizeof($imageDirObjects); $i++){

@@ -1,6 +1,7 @@
 body {
     color: white;
     background-color: #261d37;
+    max-width: 1000px;
 }
 
 li {
@@ -21,22 +22,11 @@ p>span {
 h1 {
     margin-top: 1rem;
     margin-bottom: 1rem;
-    font-size: 150%;
     text-align: center;
-}
-
-@media screen and (max-width: 800px) {
-    h1 {
-        font-size: 100%;
-    }
 }
 
 h1>em {
     color: #aa0000;
-}
-
-.dirlist {
-    display: flex;
 }
 
 .dirlist>li {
@@ -45,7 +35,9 @@ h1>em {
     margin-right: 1em;
     border: 1px solid white;
     border-radius: 6px;
-    font-size: 150%;
+    font-size: 100%;
+    padding: 2px;
+    max-width: 12em;
 }
 
 .dirlist>li>a {
@@ -63,13 +55,27 @@ h1>em {
     text-decoration: none;
 }
 
-@media screen and (max-width: 800px) {
-    h1 {
-        font-size: 100%;
-    }
-    .dirlist>li {
-        font-size: 100%;
-        width: 100%;
-    }
+#mainImage {
+    width: 300px; 
+    height: auto; 
+    margin: 10%;
 }
 
+@media screen and (width > 800px) {
+    .dirlist {
+        display: flex;
+    }
+
+    .selection_area {
+      display: grid;
+      grid-template-columns: 3fr 1fr;
+      margin-top: 5em;
+  }
+}
+
+@media screen and (max-width: 800px) {
+ .dirlist>li {  
+    width: 10em;
+    text-align: center; 
+ }
+}
