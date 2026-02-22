@@ -88,30 +88,8 @@ function getImages($directory) {
 <head>
     <title><?php echo("$headingText"); ?></title>  
     <link rel="stylesheet" type="text/css" href="showdirimages.css">
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="icon" type="image/x-icon" href="favicon.ico"> 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-        crossorigin="anonymous">   
-    <link rel="stylesheet" type="text/css" href="gallery.css">
-
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"
-        async>
-    </script>   
-    
-    <script
-        src="https://code.jquery.com/jquery-4.0.0.min.js"
-        integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao="
-        crossorigin="anonymous">
-    </script>
-
+    <?php include "head-contents.php"; ?>
+ 
     <script
         src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js">
     </script>
@@ -130,7 +108,6 @@ function getImages($directory) {
 
 </head>
 <body>
-    <!--<div style="width: 90vw; margin: 5vw; border: 1px solid red;">-->
     <div id="main_container">
     <?php
     echo("<h1>" . $headingText . "</h1>"); 
