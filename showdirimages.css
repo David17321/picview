@@ -1,7 +1,6 @@
 
 * { box-sizing: border-box; }
 
-
 /* ---- grid ---- */
 .grid {
   /*max-width: 1800px;*/
@@ -17,6 +16,7 @@
 }
 
 /* ---- grid-item ---- */
+/* Much of this is for utilizing "masonry" */
 
 @media screen and (min-width: 600px) {
   .grid-sizer, .grid-item {
@@ -66,6 +66,5 @@
     margin: 0; 
   }
 }
-
 
 /* Based on https://codepen.io/desandro/pen/nOmLZQ */
