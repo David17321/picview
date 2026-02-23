@@ -38,10 +38,9 @@ function isImage($filePath) {
 <!doctype html>
 <html lang="en">
 <head>
+    <?php include "head-contents.php"; ?>
     <link rel="stylesheet" type="text/css" href="viewimg.css">
     <title>Image Viewer</title>
-
-    <?php include "head-contents.php"; ?>
 </head>
 
 <body>
